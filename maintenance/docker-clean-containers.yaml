@@ -1,0 +1,12 @@
+---
+- name: clean docker containers
+  hosts: all
+  become: true
+  tasks:
+    - name: prune non-dangling containers
+      community.docker.docker_prune:
+        containers: true
+        images: false
+        networks: false
+        volumes: false
+        builder_cache: false
