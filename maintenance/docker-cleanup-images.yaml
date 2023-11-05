@@ -1,9 +1,9 @@
 ---
-- name: clean docker images
+- name: Prune unused images
   hosts: all
   become: true
   tasks:
-    - name: prune non-dangling images
+    - name: Prune unused images
       community.docker.docker_prune:
         containers: false
         images: true

@@ -1,0 +1,24 @@
+---
+- name: Docker Swarm cleanup
+  hosts: all
+  become: true
+  tasks:
+    - name: Prune containers older than 24h
+      community.docker.docker_prune:
+        containers: true
+        containers_filters:
+          until: 24h
+        images: false
+        networks: false
+        volumes: false
+        builder_cache: false
+
+    - name: Prune unused images
+      community.docker.docker_prune:
+        containers: false
+        images: true
+        images_filters:
+          dangling: false
+        networks: false
+        volumes: false
+        builder_cache: false

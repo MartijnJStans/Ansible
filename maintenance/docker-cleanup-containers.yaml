@@ -1,11 +1,13 @@
 ---
-- name: clean docker containers
+- name: Prune containers older than 24h
   hosts: all
   become: true
   tasks:
-    - name: prune non-dangling containers
+    - name: Prune containers older than 24h
       community.docker.docker_prune:
         containers: true
+        containers_filters:
+          until: 24h
         images: false
         networks: false
         volumes: false
